@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+    <title>Laboratorios docentes DIT-UPM: Iniciar sesión en el sitio</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="upm, moodle, alumnos, Moodle UPM: Iniciar sesión en el sitio" />
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="moodle-validation" content="011bc55b9caa41eded0581338c58da4a">
+    <link rel="shortcut icon" href="https://acceso.lab.dit.upm.es/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="https://acceso.lab.dit.upm.es/login/css/yui-moodlesimple.css">
+    <link rel="stylesheet" type="text/css" href="https://acceso.lab.dit.upm.es/login/css/stylelogin.css" />
+    <link rel="stylesheet" type="text/css" href="https://acceso.lab.dit.upm.es/login/css/login.css" />
+    <link rel="stylesheet" type="text/css" href="https:/acceso.lab.dit.upm.es/login/css/upm-blue2.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+    //<![CDATA[
+        function mostrar() {
+            var x = document.getElementById("contacto");
+            var y = document.getElementById("botoncontacto");
+            var z = document.getElementById("page-login-index");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                y.style.backgroundColor = "rgb(255, 141, 13)";
+                y.style.color = "#fff";
+                z.style.overflow = "scroll";
+            } else {
+                x.style.display = "none";
+                y.style.backgroundColor = "#fff";
+                y.style.color = "#000";
+	            z.style.overflow = "hidden";
+            }
+        }
+    //]]>
+    </script>
+
+    <style>
+    @media screen and (min-width: 601px) {
+        body {overflow: inherit;}
+        div.loginupm {font-size: 49px;}
+    }
+    @media screen and (min-width: 1300px) {
+        body {overflow: inherit;}
+        div.loginupm {font-size: 59px;}
+        div.col-xl-8 {width: 55%;}
+        div.push-xl-2{left: 22%;}
+        div.col-xl-6 {width: 55%;}
+        div.push-xl-3{left: 22%;}
+    }
+    @media screen and (max-width: 600px) {
+        body {overflow: auto;}
+        div.loginupm {font-size: 30px;}
+    }
+    </style>
+
+</head>
+
+<body id="page-login-index"
+      class="format-site  path-login gecko dir-ltr lang-es yui-skin-sam yui3-skin-sam moodle-upm-es--gate pagelayout-login course-1 context-1 notloggedin "
+      style="background-image: url(https://acceso.lab.dit.upm.es/login/laboratorio.jpg);
+            background-repeat: no-repeat;
+            background-size:cover;
+            background-attachment: fixed;
+            overflow:hidden;">
+
+    <div id="page-wrapper">
+
+        <div>
+            <a class="sr-only sr-only-focusable" href="#maincontent">Saltar a contenido principal</a>
+        </div>
+
+        <div id="page" class="container-fluid">
+            <div id="page-content" class="row">
+                <div id="region-main-box">
+                    <section id="region-main" class="col-xs-12">
+                        <span class="notifications" id="user-notifications"></span>
+                        <div role="main">
+                            <span id="maincontent"></span><div class="m-y-3 hidden-sm-down">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-8 push-xl-2 m-2-md col-sm-8 push-sm-2">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="card-title">
+		                                    <img style="float:left;height:10%;width:100%;"
+                                                src="https://acceso.lab.dit.upm.es/login/images/labdit.png"
+                                                title="Laboratorios docentes Dit-UPM"
+                                                alt="Lab-DIT UPM"/>
+                                            <!--
+		                                    <p class="loginupmtxt"
+                                               style="font-size: 25px;font-style: italic;color:#0078dc;margin:0;width:90%;padding-left:20%;">
+                                                    Departamento de Ingenier&iacute; Telem&aacute;tica
+                                            </p>
+                                            -->
+		                                    <div class="loginupm"
+                                                style="color: #0078dc;margin-bottom: 0px;width: 90%;font-weight: bold;padding-left:20%;font-size:2vw;">
+                                                Laboratorios Docentes Dit-UPM
+                                                </div>
+                                                <hr>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 push-md-1">
+                                                    <p>Va a ser redirigido al Servicio Central de Autenticación de la UPM.</p>
+                                                    <p>Deberá identificarse con su usuario <b>(sin la parte @alumnos.upm.es o @upm.es)</b> y su contraseña para acceder a MoodleUPM.</p>
+                                                    <a href="https://moodle.upm.es/titulaciones/oficiales/login/index.php?authCAS=CAS" title="SIU UPM" class="btn btn-secondary btn-block">SIU UPM</a>
+                                                        <div class="forgetpass m-t-1">
+                                                            <p>
+                                                                <a href="https://www.google.com/search?q=upm+olvido+contrase%C3%B1a&ie=utf-8&oe=utf-8&client=firefox-b" target="_blank">
+                                                                    ¿Olvidó su contraseña?
+                                                                </a>
+                                                            </p>
+                                                        </div>
+                                                </div>
+                                                <div class="col-md-4 push-md-3">
+                                                    <div class="forgetpass m-t-1">
+                                                        <p>
+                                                            <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary btn-block m-t-1"
+                                                                    id="botonmanual"
+                                                                    style="background-color: #fff;color: #000;">
+                                                                Acceso Resto de Usuarios
+                                                            </button>
+                                                            <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary btn-block m-t-1"
+                                                                    id="botonmanual_on"
+                                                                    style="background-color: rgb(255, 141, 13);color: #fff;display: none">
+                                                                Acceso Resto de Usuarios
+                                                            </button>
+                                                            <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary btn-block m-t-1" id="botoncontacto"
+                                                                    style="background-color: #fff;color: #000;">
+                                                                Contacto
+                                                            </button>
+                                                            <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary btn-block m-t-1" id="botoncontacto_on"
+                                                                    style="background-color: rgb(255, 141, 13);color: #fff;display: none">
+                                                                Contacto
+                                                            </button>
+                                                        </p>
+                                                    </div>
+                                                    <div class="forgetpass m-t-1">
+                                                        <p>
+                                                            Preguntas frecuentes de
+                                                            <a href="https://www.upm.es/atencion_usuario/lista.upm?grupos[]=50&amp;grupos[]=52&amp;grupos[]=53&amp;grupos[]=49" target="_blank">
+                                                                profesores
+                                                            </a> y
+                                                            <a href="https://www.upm.es/atencion_usuario/lista.upm?grupos[]=43&amp;grupos[]=46&amp;grupos[]=47&amp;grupos[]=48&amp;grupos[]=49" target="_blank">
+                                                                estudiantes
+                                                            </a>.
+                                                        </p>
+                                                    </div>
+                                                    <div class="m-t-1">
+                                                        Las 'Cookies' deben estar habilitadas en su navegador
+                                                        <a href="#"
+                                                           class="btn btn-link p-a-0" role="button"
+                                                           data-container="body" data-toggle="popover"
+                                                           data-placement="right"
+                                                           data-content="&lt;div class=&quot;no-overflow&quot;&gt;&lt;p&gt;Este sitio utiliza dos &quot;cookies&quot;.&lt;/p&gt;
+&lt;p&gt;La esencial es la de sesión, normalmente llamada &lt;b&gt;MoodleSession&lt;/b&gt;.
+Debe permitir que su navegador la acepte para poder mantener el servicio
+funcionando de una página a otra. Cuando sale de la plataforma o cierra su navegador la &#039;cookie&#039; se destruye (en su navegador y en el servidor).&lt;/p&gt;
+&lt;p&gt;La otra &#039;cookie&#039;, normalmente llamada &lt;b&gt;MOODLEID&lt;/b&gt;, es para su comodidad. Se limita a recordar su nombre de usuario dentro del navegador. Esto significa que cuando
+regrese al sitio se escribirá automáticamente su nombre en el campo nombre de usuario
+(userid). Si desea mayor seguridad no utilice esta opción: sólo tendrá que escribir su nombre manualmente cada vez que quiera ingresar.&lt;/p&gt;
+&lt;/div&gt; "
+                                                        data-html="true" tabindex="0" data-trigger="focus"
+                                                        >
+                                                            <i aria-hidden="true" title="Ayuda con Las &#039;Cookies&#039; deben estar habilitadas en su navegador" aria-label="Ayuda con Las &#039;Cookies&#039; deben estar habilitadas en su navegador">
+                                                                <img src="./images/help.png" alt="esta pagina necesita cookies" />
+                                                            </i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--MANUAL-->
+                                <div class="row" id="manual" style="display:none;">
+                                <div class="col-xl-6 push-xl-3 m-2-md col-sm-8 push-sm-2">
+                                    <div class="card">
+                                        <div class="card-block">
+                                            <div class="card-title text-xs-center">
+                                                <h2>ACCESO RESTO DE USUARIOS</h2>
+                                                <hr>
+                                            </div>
+                                    <div class="row">
+                                        <div class="col-md-10 push-md-1">
+                                            <form class="m-t-1"
+                                                  action="https://moodle.upm.es/titulaciones/oficiales/login/auth_index.php"
+                                                  method="post"
+                                                  id="login">
+                                                <input id="anchor" type="hidden" name="anchor" value="">
+                                                <script>document.getElementById('anchor').value = location.hash;</script>
+                                                <input type="hidden" name="logintoken" value="NoP9Mb3HrTLaiWAqW2ykTavVpR2lEg0s" />
+                                                <label for="username" class="sr-only"> Nombre de usuario</label>
+                                                <input
+                                                    type="text"
+                                                    name="username"
+                                                    id="username"
+                                                    class="form-control"
+                                                    value=""
+                                                    placeholder="Usuario"
+                                                    style="margin-bottom:7px;">
+                                                <label for="password" class="sr-only">Contraseña</label>
+                                                <input
+                                                    type="password"
+                                                    name="password"
+                                                    id="password"
+                                                    value=""
+                                                    class="form-control"
+                                                    placeholder="Contraseña">
+                                                <div class="rememberpass m-t-1">
+                                                    <input type="checkbox" name="rememberusername" id="rememberusername" value="1"  />
+                                                    <label for="rememberusername">Recordar nombre de usuario</label>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary btn-block m-t-1" id="loginbtn">Acceder</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            </div>
+                            <!--ENDMANUAL-->
+
+                            <!--CONTACTO-->
+                            <div class="row" id="contacto" style="display:none;">
+                    <div class="col-xl-6 push-xl-3 m-2-md col-sm-8 push-sm-2">
+                        <div class="card">
+                            <div class="card-block">
+                                <div class="card-title text-xs-center">
+                                    <h2>Contacto</h2>
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 push-md-1">
+                                        <p>
+                                            <img src="./images/logo-pv.png"
+                                                 alt="icono de politécnica virtual PV"
+                                                 class="img-responsive atto_image_button_middle"
+                                                 width="32"
+                                                 height="16">
+                                            &nbsp;&nbsp; A través del CAU, disponible en Politécnica Virtual, para los
+                                            <a href="https://www.upm.es/politecnica_virtual/login.upm?c=2007DJ" target="_blank">
+                                                profesores
+                                            </a>, los
+                                            <a href="https://www.upm.es/politecnica_virtual/login.upm?c=1692A" target="_blank">
+                                                alumnos
+                                            </a> y el
+                                            <a href="https://www.upm.es/politecnica_virtual/login.upm?c=2008FL" target="_blank">
+                                                PAS
+                                            </a> (forma recomendada).&nbsp;&nbsp;
+                                        </p>
+                                        <p>
+                                            <img src="./images/mail.png"
+                                                alt="Icono de correo elctrónico"
+                                                class="img-responsive atto_image_button_middle"
+                                                width="32" height="32">
+                                            &nbsp;&nbsp; Por correo electrónico:
+                                            <a href="mailto:gate@upm.es">gate@upm.es</a>.
+                                        </p>
+                                        <p>
+                                            <img src="./images/telefono.png"
+                                                 alt="Icono de teléfono"
+                                                 class="img-responsive atto_image_button_middle"
+                                                 width="32" height="32">
+                                            &nbsp;&nbsp; Por teléfono:&nbsp; 910670020 (o a la extensión 70020)
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--ERROR-->
+    <!-- ojo: el id contacto esta duplilcado. cosas del javascript -->
+    <div class="row" id="contacto" style="display:none;">
+        <div class="col-xl-6 push-xl-3 m-2-md col-sm-8 push-sm-2">
+            <div class="card">
+                <div class="card-block">
+                    <div class="card-title text-xs-center">
+                        <h2 style="color: red;">ERROR</h2>
+                        <hr style="border-top: 1px solid rgb(255, 0, 0);">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10 push-md-1">
+                            <p style="text-align: center;color: red;">
+                                La sesión ha expirado por límite de tiempo.<br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--ENDERROR-->
+
+    <footer id="page-footer" class="p-y-1 bg-inverse" style="background-size: 170px;background-position-y: initial;background-position-x: 83%;min-height: 80px;position: fixed;width: 100%;">
+        <div class="container">
+            <div class="homelink"><a href="https://moodle.upm.es">Página Principal</a></div>
+            <div class="homelink">
+                <a href="http://www.upm.es/AvisoLegal">AVISO LEGAL</a>
+                <br/>
+                foto de Antonio Juan Antonio Martínez ©
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        // control de los botones auxiliares
+        $("#botoncontacto").click(function() {
+            $("#botoncontacto").toggle();
+            $("#botoncontacto_on").toggle();
+            $("#contacto").slideDown('slow');
+            $("#page-login-index").css("overflow", "scroll");
+        });
+        $("#botoncontacto_on").click(function() {
+            $("#botoncontacto").toggle();
+            $("#botoncontacto_on").toggle();
+            $("#contacto").slideUp('slow');
+            $("#page-login-index").css("overflow", "overlay");
+        });
+        $("#botonmanual").click(function() {
+            $("#botonmanual").toggle();
+            $("#botonmanual_on").toggle();
+            $("#manual").slideDown('slow');
+            $("#page-login-index").css("overflow", "scroll");
+        });
+        $("#botonmanual_on").click(function() {
+            $("#botonmanual").toggle();
+            $("#botonmanual_on").toggle();
+            $("#manual").slideUp('slow');
+            $("#page-login-index").css("overflow", "hidden");
+        });
+
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+</body>
+</html>

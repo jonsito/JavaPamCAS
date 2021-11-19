@@ -1,0 +1,351 @@
+/* stylelint-disable color-hex-length */ /** * Default preset file. * * Use this space to customise variables, create mixins and override SCSS. */ /* FONT */ @font-face { /* where 
+FontName and fontname represents the name of the font you want to add */
+     font-family: 'Lato'; src: url([[font:theme|Lato_Regular.ttf]]) format('truetype'); font-weight: normal; font-style: normal;
+   }
+// Colors
+$gray-dark: #373a3c !default; $gray: #55595c !default; $gray-light: #818a91 !default; $gray-lighter: #eceeef !default; $gray-lightest: #f7f7f9 !default; $brand-primary: #2F7DA8 !default; 
+$brand-success: #77b300 !default; $brand-warning: #ff8800 !default; $brand-danger: #ff4136 !default; $brand-inverse: $gray-dark !default; $navbar-height: 50px !default;
+// Spacing
+$spacer: 1rem !default; $spacer-x: $spacer !default; $spacer-y: $spacer !default; $border-width: 1px !default;
+// Body
+$body-bg: #f4f4f4 !default; $body-color: #3a3a3a !default;
+// Typography
+$font-family-sans-serif: Lato,"Open Sans", "Helvetica Neue", Arial, sans-serif !default; $font-size-root: 14px !default;
+// Tables
+$table-bg: transparent !default; $table-bg-accent: #fafafa !default; $table-bg-hover: lighten($brand-primary, 55%) !default; $table-bg-active: $table-bg-hover !default; 
+$table-border-color: #f4f4f4 !default;
+// Dropdowns
+$dropdown-border-color: #e2e2e2 !default; $dropdown-link-color: rgba(0, 0, 0, .535) !default;
+// Navbar
+$navbar-light-color: rgba(0, 0, 0, .535) !default; $navbar-light-hover-color: $brand-primary !default; $navbar-light-active-color: $brand-primary !default;
+// Cards
+$card-border-radius: 0 !default; $card-border-color: rgba(238, 238, 238, 1) !default;
+// Breadcrumbs
+$breadcrumb-bg: transparent !default; $breadcrumb-padding-x: 0 !default; $breadcrumb-divider: "/" !default; $breadcrumb-divider-rtl: "/" !default;
+// Import everything.
+@import "moodle"; /** * Navigation bar identity. */ .navbar-light { background-color: #fff; border-bottom: $border-width solid #e5e5e5; .container { padding-left: 0; padding-right: 0;
+    }
+    .navbar-brand { padding-left: 1rem; padding-right: 1rem; margin-right: $spacer * 2; color: #fff; background-color: $brand-primary; @include hover-focus { color: #fff;
+        }
+        &.has-logo { color: $brand-primary; background-color: transparent; @include hover-focus { color: $brand-primary;
+            }
+        }
+    }
+    .navbar-nav { .nav-item + .nav-item { margin-left: $spacer * 2;
+        }
+        .nav-link { font-size: $font-size-sm; text-transform: uppercase; letter-spacing: 1px;
+        }
+    }
+}
+/** * Styling the dropdown menus. */ .dropdown-menu { font-size: 14px; border-radius: 0; .dropdown-item { padding: 0px; border-bottom: $border-width solid $dropdown-border-color; 
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+    .dropdown-divider { display: none;
+    }
+}
+/** * For background in content areas. */
+#page.container-fluid {
+    padding: 0 (2 * $spacer);
+}
+#block-region-side-pre {
+    padding-left: 0;
+}
+/** * Dashboard styling. */
+#page-my-index {
+    #region-main {
+        background-color: transparent; border: 0; padding: 0;
+    }
+}
+/** * Blocks. */ .block-region .card-block { .card-title { padding-bottom: ($spacer/2); font-size: 1.143rem; font-weight: 600; text-transform: uppercase;
+    }
+}
+/** * Navigation. */ .block_navigation, .block_settings { .block_tree .tree_item { margin: ($spacer/2) 0;
+    }
+}
+/** * Form styles. */ .form-group { margin-top: ($spacer/2);
+}
+.form-inline .form-group { margin-top: 0;
+}
+.navbar-light { background-color : #1867b7; border-bottom: 1px solid #e5e5e5; a { color : #EEEEEE;
+    }
+}
+#page.container-fluid {
+    padding : 0 1rem;
+}
+$drawer-width : 250px;
+#nav-drawer.closed {
+    left : -($drawer-width + $drawer-offscreen-gutter);
+}
+#nav-drawer {
+    width : $drawer-width; padding: 13px 13px;
+}
+[data-region="drawer"] { background-color: #f4f4f4;
+}
+.list-group-item { position: relative; display: block; padding: .75rem 1.25rem; margin-bottom: -1px; background-color: #fff; border: 1px solid #ddd; overflow-wrap: break-word;
+}
+body.drawer-open-left { margin-left : $drawer-width;
+}
+body.drawer-open-right { margin-right : $drawer-width;
+}
+/* RAMOS */
+#checknone:focus {
+    color: black;
+}
+#checkallonpage:focus {
+    color: black;
+}
+#checkall:focus {
+    color: black;
+}
+.searchform { margin-top: 15px;
+}
+/* LOGIN */
+#page-login-index {.card {
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2); background-color: rgba(255, 255, 255, 0.9);
+	}
+}
+/* CABECERA */ .navbar-light .navbar-nav .nav-link { color: rgba(255, 255, 255, 0.9); font-size: 1.1rem;
+}
+.navbar-light .navbar-nav .nav-link:hover { color: #fff;
+}
+.navbar-light .navbar-nav .open > .nav-link, .navbar-light .navbar-nav .open > .nav-link:focus, .navbar-light .navbar-nav .open > .nav-link:hover { color: #fff;
+}
+/* .navbar-light a { color: #094E95;
+}
+*/ /** * Styling the dropdown menus. */ /* .dropdown-menu { background-color: #6eacd5; font-size: 14px; border-radius: 0; .dropdown-item { padding-top: 8px; padding-bottom: 8px; 
+        border-bottom: $border-width solid $dropdown-border-color; &:last-child {
+            border-bottom: 0;
+        }
+    }
+    .dropdown-divider { display: none;
+    }
+	.dropdown-item:hover { color: #FFF; text-decoration: none; background-color: #2b7db4;
+    }
+}
+*/ /* MENU LATERAL */ /* a .icon { color: #cedaed; */ group-item-action:hover { background-color: #D7EEF6;
+}
+.list-group-item-action:hover { background-color: rgba(225, 237, 254, 1.0);
+}
+/* BLOCK PROFILE */ .block_myprofile .myprofileitem.fullname { font-size: 1.5em; font-weight: 800; padding-top: 20px;
+}
+.popover-region-messages .content-item-body { color: #666;
+}
+/* GENERAL */ a { color: #1177d1;
+}
+a .icon.fa.fa-eye.fa-fw { color: #6a7aa8;
+}
+.btn.btn-primary { margin-bottom: 10px;
+}
+/* LOGO CABECERA */ .navbar-brand.hidden-sm-down { /*width: 410px;*/ width: 30rem; background-image: url("https://moodle.upm.es/img/EscUpm.gif"); -webkit-background-size: 48px; 
+    background-size: 50px; background-repeat: no-repeat; height: 41px; padding: 0; background-color: #1867b7; /*margin-left: 20px;*/
+}
+.site-name.hidden-sm-down { visibility: visible;
+}
+.dropdown-menu { background-color: #fff; font-size: 14px; border-radius: 0;
+}
+.dropdown-menu a:hover .fa { color:#fff;
+}
+.dropdown-menu a:hover { color:#fff;
+}
+.dropdown-menu .dropdown-item:hover { color: #FFF;
+}
+.dropdown-item:hover { text-decoration: none; color: #FFF; background-color: #45abf0;
+}
+.dropdown-item a { color: rgb(0,112,210);
+}
+.navbar-light a { color: rgb(0,112,210);
+}
+.btn-primary { background-color: rgb(0,112,210);
+}
+.btn-primary:hover { background-color: rgb(0,99,178);
+}
+.usertext { color: rgba(255,255,252,.9);
+}
+/*
+#dropdown-1 {
+    color: rgba(255,255,252,.9);
+}
+*/
+#page-footer a {
+    color: #aaabae;
+}
+#page-footer .iconhelp {
+    color: orange;
+}
+#page-footer {
+    background-image: url('https://moodle.upm.es/img/poli_gris.jpg'); background-repeat: no-repeat; background-position: right; background-size: 220px; background-position-x: 90%; 
+background-position-y: center;
+}
+.btn.btn-primary { margin-bottom: 0px;
+}
+#page-mod-quiz-mod #id_reviewoptionshdr .form-check {
+    height: auto;
+}
+.bg-inverse { background-color: #32373B !important;
+}
+.path-mod-quiz #mod_quiz_navblock .qnbutton { color: #373a3c;
+}
+#page-login-index #page-footer {
+   background-position-x: 93%; background-size: 200px;
+}
+a.btn.btn-secondary.text-primary { color: white !important;
+}
+a.btn.btn-secondary.text-primary:hover { color: #0979d4 !important; border: 1px solid #ccc;
+}
+.btn-group > .btn:last-child:not(:first-child) { border: 1px solid #8c8c8c;
+}
+#footer .container {
+    max-width: 86%;
+}
+.navbar-light .btn-secondary { border-color: #1867b7; background-color: #1867b7;
+}
+.navbar-light .btn-secondary:hover { color: #373a3c; background-color: #0063b2; border-color: #ccc;
+}
+.navbar { padding: .4rem 1rem;
+}
+.btn.pull-xs-left.m-r-1.btn-secondary { color: #FFF;
+}
+.btn.pull-xs-left.m-r-1.btn-secondary:focus { color: #000;
+}
+.btn.pull-xs-left.m-r-1.btn-secondary:hover { color: #000;
+}
+#action-menu-2-menu .dropdown-item a {
+    height: 40px; padding: 8px;
+}
+.dropdown.nav-item.open .dropdown-menu a { padding: 8px;
+}
+.btn-secondary { background-color: #0070d2; color: #fff;
+}
+.btn-secondary:hover { background-color: #0063b2; color: #fff;
+}
+.btn-sm { background-color: #d4d4d4; border-color: #1565aa;
+}
+.btn-group > .btn:hover { color: #373a3c; background-color: #d4d4d4; border-color: #7faed7;
+}
+.btn.btn-secondary.btn-sm:hover { background-color: #e6e6e6;
+}
+.fp-dlg-butoverwrite.btn.btn-primary { margin-bottom: 2px;
+}
+.fp-dlg-butrename.btn.btn-primary { margin-bottom: 2px;
+}
+.fp-dlg-butcancel.btn.btn-secondary { background-color: #b92727;
+}
+.fp-dlg-butcancel.btn.btn-secondary:hover { background-color: #6c0909;
+}
+.coursesearchbox .btn.btn-secondary { background-color: #fff; color: black;
+}
+#searchforums.btn.btn-secondary {
+    background-color: #fff; color: #000;
+}
+#page-mod-forum-discuss .discussioncontrols .form-inline input {
+    margin-top: -1px; background-color: white; color: black;
+}
+.discussioncontrol.pindiscussion .btn.btn-secondary { background-color: white; color: black;
+}
+#id_cancel {
+    background-color: #b92727;
+}
+#id_cancel:hover {
+background-color: #6c0909;
+}
+.dropdown .dropdown-toggle { color: rgb(255,255,255,0.9);
+}
+.vms .action-menu .menubar .dropdown .dropdown-toggle { color: #1177d1;
+}
+.listing-actions .moodle-actionmenu .menubar .dropdown .dropdown-toggle { color: #1177d1;
+}
+.dropdown-menu .dropdown-item { /*padding: 5px;*/
+}
+a .icon { color: #1565aa;
+}
+.icon { color: #1565aa;
+}
+[data-action="toggle-drawer"] .icon { color: white;
+}
+.nav.navbar-nav.hidden-md-down .dropdown.nav-item .dropdown-menu .dropdown-item a { padding: 5px;
+}
+#nav-notification-popover-container .nav-link .fa-bell {
+    color: rgb(255,255,255,0.9);
+}
+#nav-message-popover-container .popover-region-toggle.nav-link .fa-comment {
+    color: rgb(255,255,255,0.9);
+}
+.m-r-1 { margin-right: 0rem !important;
+}
+.btn-secondary:focus { color: #fff;
+}
+.btn-secondary:active { color: #fff;
+}
+.btn-secondary:active:focus { color: #fff;
+}
+.dropdown .dropdown-menu .dropdown-item a { height:40px; padding-top: 10px;
+}
+.dropdown-item .activesetting .icon { padding: 11px;
+}
+.dropdown-item .currentlink .icon { padding: 11px;
+}
+.dropdown .dropdown-menu-right .dropdown-item { padding-top: 0px; border-bottom: 1px solid #e2e2e2; width: 100%; padding-left: 10px; padding-right: 10px; padding-bottom: 0px;
+}
+/* .usermenu .dropdown-item.menu-action { padding: 8px;
+}
+*/ .actions .action-menu .menubar .dropdown .dropdown-toggle { color: #1565aa;
+}
+.section_action_menu .action-menu .menubar .dropdown .dropdown-toggle { color: #1565aa;
+}
+.menu-action.cm-edit-action { height:20px;
+}
+.dropdown-item.cm-edit-action { height: 30px;
+}
+.dropdown-item.menu-action { height: 30px;
+}
+.site-name { color: #ffffffe6; padding-left: 60px; font-size: 25px; font-weight: bold; letter-spacing: 1px;
+}
+p.loginupmtxt { font-size: 25px;font-style: italic;color: chocolate;
+}
+p.loginupm { font-size: 50px;color: #005fb3;margin-bottom: 0px;width: 90%;font-weight: bold;
+	}
+.itemactions .action-menu .menubar .dropdown.d-inline .dropdown-toggle { color: #1177d1;
+}
+.site-name.hidden-sm-down { color: #deeaf5;
+}
+.menu-action-text { color: #1565aa;
+}
+.menu-action-text:hover { color: #fff;
+}
+#toggle-contact-button {
+    border: 0px solid #8c8c8c;
+}
+.card .page-context-header .btn-group .btn:hover { border: 0px;
+}
+.page-context-header .header-button-group { padding-left: 50px;
+}
+#page-report-outline-user .section {
+    border-color: #d2d2d2;
+}
+.add-menu { color: #1565aa;
+}
+.gradingform_rubric { max-width: inherit;
+}
+.cell .action-menu .menubar .dropdown .dropdown-toggle { color: #1177d1;
+}
+.cell .action-menu .menubar .dropdown .dropdown-toggle:hover { color: #1e516c; text-decoration: underline;
+}
+/** * User picture. */ .userpicture { border-radius: 30%;
+}
+/* CEPADE */ .img_summary { width: 100px; margin: 10px; float: left; background-color:transparent;
+	}
+.img_icono { width: 24px; margin: 10px;
+	}
+.img_curso { width: 800px; height: 200px; display: block; margin-left: auto; margin-right: auto;
+	}
+.summary_degradado { margin-top: 0px; padding-top:5px; background-origin:border-box; background: -webkit-linear-gradient(rgba(208,228,254,1), rgba(208,228,254,0)); /* For Safari 5.1 to 
+		6.0 */ background: -o-linear-gradient(rgba(208,228,254,1), rgba(208,228,254,0)); /* For Opera 11.1 to 12.0 */ background: -moz-linear-gradient(rgba(208,228,254,1), 
+		rgba(208,228,254,0)); /* For Firefox 3.6 to 15 */ background: linear-gradient(rgba(208,228,254,1), rgba(208,228,254,0)); /* Standard syntax (must be last) */
+	}
+.guia p, .guia ul { padding-left:120px;
+	}
+.guia { width: 100%;
+	}
+	
