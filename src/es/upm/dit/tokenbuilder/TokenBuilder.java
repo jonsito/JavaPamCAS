@@ -29,9 +29,12 @@ import org.eclipse.swt.widgets.Shell;
 
 public class TokenBuilder {
 
-    private final String NET_URL = "https://moodle.upm.es/titulaciones/oficiales";
+	private final String NET_URL = "https://acceso.lab.dit.upm.es/login";
+	private final String AUTHLOCAL_URL = "https://acceso.lab.dit.upm.es/login/auth_local.php";
+	private final String SIU_URL = "https://siupruebas.upm.es/cas/login?authCAS=CAS";
+
     private boolean moodleAvailable=false;
-    enum EstadoBrowser {NONE,Login,CAS,Logged};
+    enum EstadoBrowser {NONE,Local,CAS,Logged,Failed};
     private EstadoBrowser browserState=EstadoBrowser.NONE;
     private String moodleToken=null;
 	private final Display display = new Display();
@@ -64,23 +67,24 @@ public class TokenBuilder {
 				public void changed(LocationEvent arg0) {
 					System.out.println("LocationListener::changed "+arg0.location);
 					urlLabel.setText(arg0.location);
-					if ("https://moodle.upm.es/titulaciones/oficiales/login/auth_index.php".equals(arg0.location)) {
-						browserState=EstadoBrowser.Login;
-						System.out.println("Estamos haciendo el login de moodle");
+					if (AUTHLOCAL_URL.equals(arg0.location)) {
+						browserState=EstadoBrowser.Local;
+						System.out.println("Estamos haciendo el login por LDAP local");
 					}
-					if ("https://moodle.upm.es/titulaciones/oficiales/login/index.php?authCAS=CAS".equals(arg0.location)) {
-						browserState=EstadoBrowser.CAS;
-						System.out.println("Estamos haciendo el login en CAS");
+					if (SIU_URL.equals(arg0.location)) {
+						switch (browserState) {
+							// - Ventana de login - referer: https://acceso.lab.dit.upm.es/login
+							case NONE:
+								System.out.println("Estamos haciendo el login en CAS");
+								browserState=EstadoBrowser.CAS;
+								break;
+							case CAS:
+								// nota: si se recibe un error 401 (AUTH FAILED) implica usuario/contraseña incorrecta
+								System.out.println("CAS Login Success");
+								browserState=EstadoBrowser.Logged;
+								display.dispose();
+						}
 					}
-					if ("https://moodle.upm.es/titulaciones/oficiales/my/".equals(arg0.location)) {
-						browserState=EstadoBrowser.Logged;
-						System.out.println("Está hecho el login de moodle");
-						browser.setUrl("https://moodle.upm.es/titulaciones/oficiales/admin/tool/mobile/launch.php?service=moodle_mobile_app&passport=12345&urlscheme=tokenbuilder");
-					}
-					if (browserState == EstadoBrowser.Logged && "https://moodle.upm.es/titulaciones/oficiales/login/login.php".equals(arg0.location)) {
-						System.out.println("Está hecho el logout de moodle");
-						display.dispose();
-					}						
 				}
             	@Override
 				public void changing(LocationEvent arg0) {
@@ -90,8 +94,8 @@ public class TokenBuilder {
 						String token=arg0.location.substring("tokenbuilder://token=".length(), end);
 						String base64Decoded=new String(Base64.getDecoder().decode(token));
 						moodleToken=base64Decoded.split(":::")[1];
-						System.out.println("Podemos acceder a moodle. Hacemos el loggout ");//+moodleToken);
-						browser.setUrl("https://moodle.upm.es/titulaciones/oficiales/login/login.php");
+						System.out.println("Podemos acceder a laboratorio. Hacemos el loggout ");//+moodleToken);
+						browser.setUrl(NET_URL);
 					}
 				}
             	
@@ -99,7 +103,7 @@ public class TokenBuilder {
             browser.addProgressListener(new ProgressListener() {
 				@Override
 				public void changed(ProgressEvent arg0) {
-					System.out.println("Estamos desacargado página web ");
+					System.out.println("Estamos desacargado página web "+arg0.toString());
 				}
 
 				@Override

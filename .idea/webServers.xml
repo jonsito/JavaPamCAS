@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="1006db52-fef5-4344-81fa-fc893f67a54d" name="acceso.lab.dit.upm.es" url="https://acceso.lab.dit.upm.es/login">
+        <fileTransfer rootFolder="/var/www/html/login/" accessType="SFTP" host="acceso.lab.dit.upm.es" port="22" sshConfigId="bbe225a1-a25e-4094-86fe-f4564afc7399" sshConfig="cdc@acceso.lab.dit.upm.es:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
