@@ -42,6 +42,10 @@ public class TokenBuilder {
 	private final Shell shell;
 	private Browser browser;
 
+	private void retrieveData(String s) {
+		System.err.println("Recuparando datos...");
+	}
+
     public TokenBuilder() {
         display.setRuntimeExceptionHandler(new Consumer<RuntimeException>() {
 			@Override
@@ -62,6 +66,7 @@ public class TokenBuilder {
         try {
         	if (SWT.getVersion() > 5100) browser = new Browser(shell, 0x40000); // SWT.EDGE);
         	else        				browser = new Browser(shell, SWT.NONE);
+			/*
             browser.addLocationListener(new LocationListener() {
             	@Override
 				public void changed(LocationEvent arg0) {
@@ -100,6 +105,7 @@ public class TokenBuilder {
 				}
             	
             });
+			*/
             browser.addProgressListener(new ProgressListener() {
 				@Override
 				public void changed(ProgressEvent arg0) {
@@ -110,6 +116,18 @@ public class TokenBuilder {
 				public void completed(ProgressEvent arg0) {
 					// System.out.println("Progress completed "+arg0.toString());
 					browser.getParent().layout();
+					String data=browser.getText();
+					if (data.indexOf("Laboratorio")>0) {
+						System.err.println("En la pagina del laboratorio");
+					} else if (data.indexOf("Credenciales")>0) {
+						System.err.println("Login incorrecto");
+					} else if (data.indexOf("displayName")>0) {
+						System.err.println("Login success");
+						retrieveData(data);
+						display.dispose();
+					} else {
+						System.err.println("Entrando en "+SIU_URL);
+					}
 				}
             });
         } catch (SWTError e) {
