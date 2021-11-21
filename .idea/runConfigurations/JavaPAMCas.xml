@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="JavaPAMCas" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="es.upm.dit.tokenbuilder.TokenBuilder" />
+    <option name="MAIN_CLASS_NAME" value="es.upm.dit.upm_authenticator.UPMAuthenticator" />
     <module name="JavaPamCAS" />
     <method v="2">
       <option name="Make" enabled="true" />

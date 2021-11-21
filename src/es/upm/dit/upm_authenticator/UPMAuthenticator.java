@@ -1,39 +1,35 @@
-package es.upm.dit.tokenbuilder;
+package es.upm.dit.upm_authenticator;
 
+import java.io.BufferedReader;
+import java.io.StringReader;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.Base64;
+import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.function.Consumer;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTError;
 import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.browser.LocationEvent;
-import org.eclipse.swt.browser.LocationListener;
 import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.browser.ProgressListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
-public class TokenBuilder {
+public class UPMAuthenticator {
 
 	private final String NET_URL = "https://acceso.lab.dit.upm.es/login";
 	private final String AUTHLOCAL_URL = "https://acceso.lab.dit.upm.es/login/auth_local.php";
 	private final String SIU_URL = "https://siupruebas.upm.es/cas/login?authCAS=CAS";
 
-    private boolean moodleAvailable=false;
     enum EstadoBrowser {NONE,Local,CAS,Logged,Failed};
     private EstadoBrowser browserState=EstadoBrowser.NONE;
     private String moodleToken=null;
@@ -42,11 +38,36 @@ public class TokenBuilder {
 	private final Shell shell;
 	private Browser browser;
 
-	private void retrieveData(String s) {
-		System.err.println("Recuparando datos...");
+	private Hashtable<String,String> retrieveData(String s) throws IOException{
+		Hashtable<String,String> result= new Hashtable<String,String>();
+		String key=null,value=null;
+		BufferedReader reader=new BufferedReader(new StringReader(s));
+		System.err.println("Recuperando datos...");
+		while ( (s= reader.readLine()) !=null) {
+			// locate key/value pairs
+			int from=s.indexOf("<td><kbd><span>");
+			int to=s.indexOf("</span></kbd></td>");
+			if ((from>=0) && (to>=0)) {
+				// item key found. get it
+				key=s.substring(from+15,to);
+			}
+			from=s.indexOf("<td><code><span>[");
+			to=s.indexOf("]</span></code></td>");
+			if ((from>=0) && (to>=0)) {
+				// found value for previous key. convert from iso-latin1 to utf-8
+				byte[] b=s.substring(from+17,to).getBytes(StandardCharsets.ISO_8859_1);
+				value=new String(b);
+			}
+			if (key!=null && value!=null ) {
+				result.put(key,new String(value));
+				key=null; value=null;
+			}
+		}
+		reader.close();
+		return result;
 	}
 
-    public TokenBuilder() {
+    public UPMAuthenticator() {
         display.setRuntimeExceptionHandler(new Consumer<RuntimeException>() {
 			@Override
 			public void accept(RuntimeException t) {
@@ -62,6 +83,7 @@ public class TokenBuilder {
         shell = new Shell(display);
         FormLayout formLayout = new FormLayout();
         shell.setLayout(formLayout);
+		shell.setFullScreen(true);
 
         try {
         	if (SWT.getVersion() > 5100) browser = new Browser(shell, 0x40000); // SWT.EDGE);
@@ -106,10 +128,11 @@ public class TokenBuilder {
             	
             });
 			*/
+
             browser.addProgressListener(new ProgressListener() {
 				@Override
 				public void changed(ProgressEvent arg0) {
-					System.out.println("Estamos desacargado página web "+arg0.toString());
+					// System.out.println("Estamos desacargado página web "+arg0.toString());
 				}
 
 				@Override
@@ -123,10 +146,26 @@ public class TokenBuilder {
 						System.err.println("Login incorrecto");
 					} else if (data.indexOf("displayName")>0) {
 						System.err.println("Login success");
-						retrieveData(data);
+						try {
+							Hashtable<String,String> items =retrieveData(data);
+							Enumeration<String> e = items.keys();
+							while (e.hasMoreElements()) {
+								String key=e.nextElement();
+								System.out.println(key+": "+items.get(key));
+							}
+							// also extract DNI
+							String dni=items.get("upmPersonalUniqueID").replaceAll("[^0-9]", "");
+							System.out.println("userID: "+dni);
+							// now some checks
+							if (!items.get("upmCentre").contains("09"))
+								throw new IOException("El usuario "+items.get("uid")+" no está en la ETSIT");
+						} catch (IOException e) {
+							System.err.println(e.getMessage());
+							e.printStackTrace();
+						}
 						display.dispose();
 					} else {
-						System.err.println("Entrando en "+SIU_URL);
+						System.err.println("En la página de autenticación de la UPM");
 					}
 				}
             });
@@ -134,7 +173,6 @@ public class TokenBuilder {
             System.err.println("No se puede instanciar Browser: " + e.getMessage()+". Tu instalación de eclipse no permite acceder a moodle");
             e.printStackTrace();
             display.dispose();
-            moodleAvailable=false;
             return;
         }
 
@@ -142,7 +180,7 @@ public class TokenBuilder {
         final Composite composite = new Composite(shell, SWT.NONE);
         FormLayout compLayout = new FormLayout();
         composite.setLayout(compLayout);
-
+		/*
 		FormData data = new FormData();
 		data.height = 40;
 		data.width = 700;
@@ -163,20 +201,24 @@ public class TokenBuilder {
 		data.left = new FormAttachment(itemRefresh, 5, SWT.DEFAULT);
 		urlLabel.setLayoutData(data);
 
-		// ventana del navegador
-        data = new FormData();
-		data.left = new FormAttachment(0, 0);
-		data.bottom = new FormAttachment(100,0);
-		data.right = new FormAttachment(100, 0);
-		data.top = new FormAttachment(composite, 5, SWT.DEFAULT);
-		browser.setLayoutData(data);
-        
+		// controles del boton de refrescar
 		Listener listener = new Listener() {
 			public void handleEvent(Event event) {
 				browser.refresh();
 			}
 		};
 		itemRefresh.addListener(SWT.Selection, listener);
+
+		*/
+
+		// ventana del navegador
+        FormData data = new FormData();
+		data.left = new FormAttachment(0, 0);
+		data.bottom = new FormAttachment(100,0);
+		data.right = new FormAttachment(100, 0);
+		data.top = new FormAttachment(composite, 0, SWT.DEFAULT);
+		browser.setLayoutData(data);
+
     }
     
     private boolean isInternetReachable() {
@@ -197,21 +239,15 @@ public class TokenBuilder {
         }
         return true;
     }
-
-    public boolean moodleAvailable() {
-    	return moodleAvailable;
-    }
     
     public void start() {
         shell.open();
         if(isInternetReachable()) browser.setUrl(NET_URL);
         else {
         	System.err.println("No está accesible "+NET_URL+": o el servidor no está accesible o no hay acceso a internet");
-        	moodleAvailable=false;
         	display.dispose();
         	return;
         }
-        moodleAvailable=true;
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) display.sleep();
         }
@@ -270,6 +306,6 @@ public class TokenBuilder {
     }
 	
     public static void main(String[] args) {
-        new TokenBuilder().start();
+        new UPMAuthenticator().start();
     }
 }
