@@ -6,6 +6,8 @@
         <serverdata>
           <mappings>
             <mapping deploy="." local="$PROJECT_DIR$/html" web="/" />
+            <mapping deploy="./php" local="$PROJECT_DIR$/php" web="/" />
+            <mapping deploy="./logs" local="$PROJECT_DIR$/logs" web="/" />
           </mappings>
         </serverdata>
       </paths>
