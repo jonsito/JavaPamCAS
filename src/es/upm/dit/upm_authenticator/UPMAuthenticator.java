@@ -33,11 +33,7 @@ public class UPMAuthenticator {
 	private final String AUTHLOCAL_URL = "https://acceso.lab.dit.upm.es/login/php/auth_local.php";
 	private final String SIU_URL = "https://siupruebas.upm.es/cas/login?authCAS=CAS";
 
-    enum EstadoBrowser {NONE,Local,CAS,Logged,Failed};
-    private EstadoBrowser browserState=EstadoBrowser.NONE;
-    private String moodleToken=null;
 	private final Display display = new Display();
-	private Label urlLabel;
 	private final Shell shell;
 	private Browser browser;
 
@@ -89,51 +85,12 @@ public class UPMAuthenticator {
         shell = new Shell(display);
         FormLayout formLayout = new FormLayout();
         shell.setLayout(formLayout);
-		shell.setFullScreen(fullScreen);
+		if (fullScreen) shell.setFullScreen(fullScreen);
+		else shell.setSize(1440,900);
 
         try {
         	if (SWT.getVersion() > 5100) browser = new Browser(shell, 0x40000); // SWT.EDGE);
         	else        				browser = new Browser(shell, SWT.NONE);
-			/*
-            browser.addLocationListener(new LocationListener() {
-            	@Override
-				public void changed(LocationEvent arg0) {
-					System.err.println("LocationListener::changed "+arg0.location);
-					urlLabel.setText(arg0.location);
-					if (AUTHLOCAL_URL.equals(arg0.location)) {
-						browserState=EstadoBrowser.Local;
-						System.err.println("Estamos haciendo el login por LDAP local");
-					}
-					if (SIU_URL.equals(arg0.location)) {
-						switch (browserState) {
-							// - Ventana de login - referer: https://acceso.lab.dit.upm.es/login
-							case NONE:
-								System.err.println("Estamos haciendo el login en CAS");
-								browserState=EstadoBrowser.CAS;
-								break;
-							case CAS:
-								// nota: si se recibe un error 401 (AUTH FAILED) implica usuario/contraseña incorrecta
-								System.err.println("CAS Login Success");
-								browserState=EstadoBrowser.Logged;
-								display.dispose();
-						}
-					}
-				}
-            	@Override
-				public void changing(LocationEvent arg0) {
-					System.err.println("LocationListener::changing "+arg0.location);
-					if (arg0.location.startsWith("tokenbuilder://token=")) {
-						int end = arg0.location.indexOf("==");
-						String token=arg0.location.substring("tokenbuilder://token=".length(), end);
-						String base64Decoded=new String(Base64.getDecoder().decode(token));
-						moodleToken=base64Decoded.split(":::")[1];
-						System.err.println("Podemos acceder a laboratorio. Hacemos el logout ");//+moodleToken);
-						browser.setUrl(NET_URL);
-					}
-				}
-            	
-            });
-			*/
             browser.addProgressListener(new ProgressListener() {
 				@Override
 				public void changed(ProgressEvent arg0) {
@@ -304,10 +261,6 @@ public class UPMAuthenticator {
  	       System.err.println("SO desconocido " + osNameProperty); 
  	       return null;
  	   } 
-    }
-    
-    public String getMoodleToken() {
-    	return moodleToken;
     }
 	
     public static void main(String[] args) {

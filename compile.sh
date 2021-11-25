@@ -2,7 +2,7 @@
 
 cacerts_file=""
 [ -f /etc/pki/java/cacerts ] && cacerts_file=/etc/pki/java/cacerts # Fedora
-[ -f /etc/ssl/java/cacerts ] && cacerts_file=/etc/ssl/java/cacerts # Ubuntu
+[ -f /etc/ssl/certs/java/cacerts ] && cacerts_file=/etc/ssl/certs/java/cacerts # Ubuntu
 
 fs=""
 mkdir -p out
