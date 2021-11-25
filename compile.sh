@@ -6,9 +6,9 @@ cacerts_file=""
 [ -f /etc/ssl/certs/java/cacerts ] && cacerts_file=/etc/ssl/certs/java/cacerts # Ubuntu
 
 fs=""
-mkdir -p out
-mkdir -p logs
-touch logs/trace.log
+mkdir -p ${run_dir}/out
+mkdir -p ${run_dir}/logs
+touch ${run_dir}/logs/trace.log
 case "Z${1}" in
   "Z-c" | "Z--compile" )
       javac -cp ${run_dir}/jars/org.eclipse.swt.gtk.linux.x86_64_3.111.0.v20190605-1801.jar:${run_dir}/jars/org.eclipse.swt_3.111.0.v20190605-1801.jar:${run_dir}/src \
