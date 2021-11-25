@@ -72,7 +72,7 @@ public class UPMAuthenticator {
 		return result;
 	}
 
-    public UPMAuthenticator() {
+    public UPMAuthenticator(boolean fullScreen) {
         display.setRuntimeExceptionHandler(new Consumer<RuntimeException>() {
 			@Override
 			public void accept(RuntimeException t) {
@@ -89,7 +89,7 @@ public class UPMAuthenticator {
         shell = new Shell(display);
         FormLayout formLayout = new FormLayout();
         shell.setLayout(formLayout);
-		// shell.setFullScreen(true);
+		shell.setFullScreen(fullScreen);
 
         try {
         	if (SWT.getVersion() > 5100) browser = new Browser(shell, 0x40000); // SWT.EDGE);
@@ -311,6 +311,7 @@ public class UPMAuthenticator {
     }
 	
     public static void main(String[] args) {
-        new UPMAuthenticator().start();
+		boolean fullScreen= (args.length > 0) && (args[0].equals("fullscreen"));
+		new UPMAuthenticator(fullScreen).start();
     }
 }
