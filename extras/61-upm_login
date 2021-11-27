@@ -16,7 +16,7 @@ EXIT=exit
 grep -q 'UPM_LOGIN' /proc/cmdline || ${EXIT} 0
 
 # Vemos si tenemos los paquetes necesarios
-[ -f /usr/local/local/upm_login.tgz ] || ${EXIT} 0
+[ -f /usr/local/local/JavaPamCas.tgz ] || ${EXIT} 0
 
 # Paramos GDM
 systemctl stop gdm3
@@ -34,7 +34,7 @@ __EOF
 
 #instalamos la app de acceso remoto
 cd /root
-tar zxvf /usr/local/local/upm_login.tgz
+tar zxvf /usr/local/local/JavaPamCas.tgz
 
 # arrancamos xinit. El /root/.xinitrc lanzará la aplicacion de login
 /usr/bin/xinit &
