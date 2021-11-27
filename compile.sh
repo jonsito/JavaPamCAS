@@ -30,11 +30,17 @@ case "Z${1}" in
           -file ${run_dir}/certs/acceso-lab-dit-upm-es-chain.pem \
           -keystore ${cacerts_file}
       ;;
+  "Z-p" | "Z--package" )
+      name=`basename ${run_dir}`
+      cd ${run_dir}/..
+      tar zcvf ${name}.tgz --exclude '.git' --exclude '.idea' ${name}
+      ;;
   * )
       echo "Usage ${0} <option>"
       echo "Options:"
       echo "-c || --compile     to compile"
       echo "-r || --run         to execute ( add -f to run in full screen mode) "
       echo "-k || --key         to install certificate in keystore"
+      echo "-p || --package     to generate a tgz package with all neeeded files"
       ;;
 esac

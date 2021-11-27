@@ -1,0 +1,42 @@
+#!/bin/bash
+#
+
+# Dado que este script se puede usar tanto desde linea de comandos
+# como desde el rc.local (mediante "source ./etc/rc.lab.d/14-autologin")
+# con este truco ajustamos el uso de "exit" o "return"
+# http://stackoverflow.com/questions/2683279/how-to-detect-if-a-script-is-being-sourced
+EXIT=exit
+[ "${BASH_SOURCE[0]}" != "${0}" ] && EXIT=return
+
+# este script forma parte del sistema de autenticación via siu.upm.es
+# eliminamos el gdm y lo substituímos por un programa Java que autentica usuarios
+# bien en el servicio de autenticación central de la UPM, o bien en el ldap local
+
+# Comprobamos si tenemos que activar el login de UPM
+grep -q 'UPM_LOGIN' /proc/cmdline || ${EXIT} 0
+
+# Vemos si tenemos los paquetes necesarios
+[ -f /usr/local/local/upm_login.tgz ] || ${EXIT} 0
+
+# Paramos GDM
+systemctl stop gdm3
+systemctl disable gdm3
+
+# Generamos un .xinitrc para el usuario root
+cat << __EOF > /root/.xinitrc
+#!/bin/bash
+export DISPLAY=:0
+xhost +
+mutter &
+sleep 2
+/root/JavaPamCas/compile.sh -r -f >> /var/log/upm_login.log
+__EOF
+
+#instalamos la app de acceso remoto
+cd /root
+tar zxvf /usr/local/local/upm_login.tgz
+
+# arrancamos xinit. El /root/.xinitrc lanzará la aplicacion de login
+/usr/bin/xinit &
+
+${EXIT} 0
