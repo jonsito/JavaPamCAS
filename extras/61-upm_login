@@ -14,7 +14,7 @@ base=/root
 grep -q 'UPM_LOGIN' /proc/cmdline || ${EXIT} 0
 
 # Vemos si tenemos los paquetes necesarios
-[ -f /usr/local/local/JavaPamCas.tgz ] || ${EXIT} 0
+[ -f /usr/local/local/JavaPamCAS.tgz ] || ${EXIT} 0
 
 # este script forma parte del sistema de autenticación via siu.upm.es
 # lo que hacemos es 
@@ -38,7 +38,7 @@ cat << __EOF > ${base}/upm_login.sh
 /usr/bin/Xorg :1 vt1 &
 sleep 5
 DISPLAY=:1 /usr/bin/xhost +
-DISPLAY=:1 ${base}/JavaPamCas/compile.sh -r -f >> ${base}/upm_login.log &
+DISPLAY=:1 ${base}/JavaPamCAS/compile.sh -r -f >> ${base}/upm_login.log &
 DISPLAY=:1 /usr/bin/mutter --sm-disable --replace &
 __EOF
 # y lo instalamos
@@ -47,8 +47,8 @@ chmod +x ${base}/upm_login.sh
 
 #instalamos la app de acceso remoto
 cd ${base}
-tar zxf /usr/local/local/JavaPamCas.tgz
-chown -R root ${base}/JavaPamCas
+tar zxf /usr/local/local/JavaPamCAS.tgz
+chown -R root ${base}/JavaPamCAS
 
 #re-arrancamos entorno gráfico
 #systemctl restart gdm

@@ -33,7 +33,7 @@ case "Z${1}" in
   "Z-p" | "Z--package" )
       name=`basename ${run_dir}`
       cd ${run_dir}/..
-      tar zcvf ${name}.tgz --exclude '.git' --exclude '.idea' ${name}
+      tar zcvf JavaPamCAS.tgz --exclude '.git' --exclude '.idea' ${name}
       ;;
   * )
       echo "Usage ${0} <option>"
