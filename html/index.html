@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="https://acceso.lab.dit.upm.es/login/css/stylelogin.css" />
     <link rel="stylesheet" type="text/css" href="https://acceso.lab.dit.upm.es/login/css/login.css" />
     <link rel="stylesheet" type="text/css" href="https://acceso.lab.dit.upm.es/login/css/upm-blue2.css" />
-    <link rel="stylesheet" type="text/css" href="https://acceso.lab.dit.upm.es/login/css/tooltip.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -34,6 +33,20 @@
 	            z.style.overflow = "hidden";
             }
         }
+
+        function handle_invalidLogin() {
+            // miramos argumentos de la llamada para ver si hay que activar el tooltip
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            if(urlParams.has('Invalid') ) { // show error message 4 seconds
+                $('#botonmanual').trigger('click');
+                $('#invalid_login').css('display','inherit');
+                setTimeout(function () { $('#invalid_login').css('display','none');},4000);
+            } else {
+                $('#invalid_login').css('display','none');
+            }
+        }
+
     //]]>
     </script>
 
@@ -64,7 +77,8 @@
             background-repeat: no-repeat;
             background-size:cover;
             background-attachment: fixed;
-            overflow:hidden;">
+            overflow:hidden;"
+      onload="handle_invalidLogin();">
 
     <div id="page-wrapper">
 
@@ -192,9 +206,14 @@ regrese al sitio se escribirá automáticamente su nombre en el campo nombre de 
                                                 <h2>ACCESO RESTO DE USUARIOS</h2>
                                                 <hr>
                                             </div>
-                                    <div class="row website-tooltip">
-                                        <div id="invalid_login" class="website-tooltiptext">Credenciales incorrectas.<br/>Inténtelo de nuevo</div>
+                                    <div class="row">
+
                                         <div class="col-md-10 push-md-1">
+                                            <div>
+                                                <span id="invalid_login" style="display:none">
+                                                    Credenciales incorrectas. Inténtelo de nuevo
+                                                </span>
+                                            </div>
                                             <form class="m-t-1"
                                                   action="https://acceso.lab.dit.upm.es/login/php/auth_local.php"
                                                   method="post"
@@ -355,15 +374,6 @@ regrese al sitio se escribirá automáticamente su nombre en el campo nombre de 
             $('[data-toggle="popover"]').popover();
         });
 
-        // miramos argumentos de la llamada para ver si hay que activar el tooltip
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        if(urlParams.has('Invalid') ) { // show error message 2.5 seconds
-            $('#invalid_login').css('visibility','visible');
-            setTimeout(function () { $('#invalid_login').css('display','none');},2500);
-        } else {
-            $('#invalid_login').css('display','none');
-        }
     </script>
 </body>
 </html>

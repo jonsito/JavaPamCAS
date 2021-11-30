@@ -1,6 +1,14 @@
 body {
 font-family: "Segoe UI","Open Sans","Helvetica Neue",Arial,sans-serif;
 }
+
 #page-footer {
     background-color: #32373b !important;
+}
+
+#invalid_login {
+    text-align: center;
+    background-color: rgb(255, 141, 13);
+    color: #000;
+    border: solid black 1px;
 }
