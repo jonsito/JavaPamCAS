@@ -8,9 +8,7 @@
 EXIT=exit
 [ "${BASH_SOURCE[0]}" != "${0}" ] && EXIT=return
 
-# este script forma parte del sistema de autenticación via siu.upm.es
-# eliminamos el gdm y lo substituímos por un programa Java que autentica usuarios
-# bien en el servicio de autenticación central de la UPM, o bien en el ldap local
+base=/root
 
 # Comprobamos si tenemos que activar el login de UPM
 grep -q 'UPM_LOGIN' /proc/cmdline || ${EXIT} 0
@@ -18,25 +16,43 @@ grep -q 'UPM_LOGIN' /proc/cmdline || ${EXIT} 0
 # Vemos si tenemos los paquetes necesarios
 [ -f /usr/local/local/JavaPamCas.tgz ] || ${EXIT} 0
 
+# este script forma parte del sistema de autenticación via siu.upm.es
+# lo que hacemos es 
+# - detener gdm
+# - crear un .xinitrc para el usuario
+# - descomprimir el paquete JavaPasCam
+# - lanzar startx 
+
 # Paramos GDM
 systemctl stop gdm3
-systemctl disable gdm3
+# systemctl disable gdm3
 
-# Generamos un .xinitrc para el usuario root
-cat << __EOF > /root/.xinitrc
+# Generamos un .xinitrc para el usuario
+# hacemos que las X se ejecuten en /dev/tty2, pues el tty1 está ocupado por la consola
+# para evitar lios ponemos como display :1
+mkdir -p ${base}
+rm -f ${base}/.xinitrc
+rm -f ${base}/.Xauthority
+cat << __EOF > ${base}/upm_login.sh
 #!/bin/bash
-export DISPLAY=:0
-xhost +
-mutter &
-sleep 2
-/root/JavaPamCas/compile.sh -r -f >> /var/log/upm_login.log
+/usr/bin/Xorg :1 vt1 &
+sleep 5
+DISPLAY=:1 /usr/bin/xhost +
+DISPLAY=:1 ${base}/JavaPamCas/compile.sh -r -f >> ${base}/upm_login.log &
+DISPLAY=:1 /usr/bin/mutter --sm-disable --replace &
 __EOF
+# y lo instalamos
+chown root ${base}/upm_login.sh
+chmod +x ${base}/upm_login.sh
 
 #instalamos la app de acceso remoto
-cd /root
-tar zxvf /usr/local/local/JavaPamCas.tgz
+cd ${base}
+tar zxf /usr/local/local/JavaPamCas.tgz
+chown -R root ${base}/JavaPamCas
 
-# arrancamos xinit. El /root/.xinitrc lanzará la aplicacion de login
-/usr/bin/xinit &
+#re-arrancamos entorno gráfico
+#systemctl restart gdm
+su -l root -c ${base}/upm_login.sh &
 
 ${EXIT} 0
+

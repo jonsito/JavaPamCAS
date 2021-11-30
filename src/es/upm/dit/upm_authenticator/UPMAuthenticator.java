@@ -106,6 +106,7 @@ public class UPMAuthenticator {
 						System.err.println("En la pagina del laboratorio");
 					} else if (data.indexOf("Credenciales")>0) {
 						System.err.println("Login incorrecto");
+						browser.setUrl(NET_URL+"?Invalid=1");
 					} else if (data.indexOf("displayName")>0) {
 						System.err.println("Login success");
 						try {
@@ -142,36 +143,6 @@ public class UPMAuthenticator {
         final Composite composite = new Composite(shell, SWT.NONE);
         FormLayout compLayout = new FormLayout();
         composite.setLayout(compLayout);
-		/*
-		FormData data = new FormData();
-		data.height = 40;
-		data.width = 700;
-		data.top = new FormAttachment(0,0);
-		composite.setLayoutData(data);
-
-		// boton de "refrescar"
-		final Button itemRefresh = new Button(composite, SWT.PUSH);
-		itemRefresh.setText("Refresca");
-		itemRefresh.setSelection(true);
-
-		// etiqueta con la url a la que se está accediento
-		urlLabel=new Label(composite, SWT.BORDER);
-		urlLabel.setText(browser.getUrl());
-		data = new FormData();
-		data.height = 40;
-		data.width = 650;
-		data.left = new FormAttachment(itemRefresh, 5, SWT.DEFAULT);
-		urlLabel.setLayoutData(data);
-
-		// controles del boton de refrescar
-		Listener listener = new Listener() {
-			public void handleEvent(Event event) {
-				browser.refresh();
-			}
-		};
-		itemRefresh.addListener(SWT.Selection, listener);
-
-		*/
 
 		// ventana del navegador
         FormData data = new FormData();
