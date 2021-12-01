@@ -49,34 +49,53 @@
             body {overflow: auto;}
             div.loginupm {font-size: 30px;}
         }
+
+        .center-screen {
+            display: block;
+            margin: auto;
+            width: 50%;
+            border: 2px solid black;
+            padding: 10px;
+            background: lightgrey;
+        }
     </style>
 </head>
-<body onload="login_success();">
-    <p>
-        Usuario identificado correctamente
-    </p>
-    <form name="datos_identificativos">
-        <ul>
-            <li>
-                <label for="nombre">Nombre:</label>
-                <input id="nombre" type="text" value=""/>
-            </li>
-            <li>
-                <label for="login">Login:</label>
-                <input id="login" type="text" value=""/>
-            </li>
-            <li>
-                <label for="userid">ID de usuario:</label>
-                <input id="userid" type="text" value=""/>
-            </li>
-            <li>
-                <label for="home">Directorio del usuario</label>
-                <input id="home" type="text" value=""/>
-            </li>
-        </ul>
-    </form>
-    <p>
-        Preparando la sesión.... por favor espere un momento
-    </p>
+
+<body onload="login_success();"
+    class="format-site  path-login gecko dir-ltr lang-es yui-skin-sam yui3-skin-sam moodle-upm-es--gate pagelayout-login course-1 context-1 notloggedin"
+    style="background-image: url(https://acceso.lab.dit.upm.es/login/images/laboratorio.jpg);
+        background-repeat: no-repeat;
+        background-size:cover;
+        background-attachment: fixed;
+        overflow:hidden;"
+/>
+    <div class="center-screen">
+        <p>
+            Usuario identificado correctamente
+        </p>
+        <form name="datos_identificativos">
+            <ul>
+                <li>
+                    <label for="nombre">Nombre:</label>
+                    <input id="nombre" type="text" value=""/>
+                </li>
+                <li>
+                    <label for="login">Login:</label>
+                    <input id="login" type="text" value=""/>
+                </li>
+                <li>
+                    <label for="userid">ID de usuario:</label>
+                    <input id="userid" type="text" value=""/>
+                </li>
+                <li>
+                    <label for="home">Directorio del usuario</label>
+                    <input id="home" type="text" value=""/>
+                </li>
+            </ul>
+        </form>
+        <p>
+            Preparando la sesión.... por favor espere un momento
+        </p>
+    </div>
 </body>
 </html>
