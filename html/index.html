@@ -17,22 +17,6 @@
 
     <script type="text/javascript">
     //<![CDATA[
-        function mostrar() {
-            var x = document.getElementById("contacto");
-            var y = document.getElementById("botoncontacto");
-            var z = document.getElementById("page-login-index");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-                y.style.backgroundColor = "rgb(255, 141, 13)";
-                y.style.color = "#fff";
-                z.style.overflow = "scroll";
-            } else {
-                x.style.display = "none";
-                y.style.backgroundColor = "#fff";
-                y.style.color = "#000";
-	            z.style.overflow = "hidden";
-            }
-        }
 
         function handle_invalidLogin() {
             // miramos argumentos de la llamada para ver si hay que activar el tooltip

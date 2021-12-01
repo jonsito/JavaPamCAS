@@ -7,10 +7,12 @@ import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
-import java.util.Base64;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTError;
@@ -29,9 +31,10 @@ import org.eclipse.swt.widgets.Shell;
 
 public class UPMAuthenticator {
 
-	private final String NET_URL = "https://acceso.lab.dit.upm.es/login";
+	private final String NET_URL = "https://acceso.lab.dit.upm.es/login/index.html";
 	private final String AUTHLOCAL_URL = "https://acceso.lab.dit.upm.es/login/php/auth_local.php";
 	private final String SIU_URL = "https://siupruebas.upm.es/cas/login?authCAS=CAS";
+	private final String SUCCESS_URL = "https://acceso.lab.dit.upm.es/login/success.html";
 
 	private final Display display = new Display();
 	private final Shell shell;
@@ -105,28 +108,40 @@ public class UPMAuthenticator {
 					if (data.indexOf("Laboratorio")>0) {
 						System.err.println("En la pagina del laboratorio");
 					} else if (data.indexOf("Credenciales")>0) {
-						System.err.println("Login incorrecto");
+						System.err.println("Login Incorrecto (SIU-UPM)");
+					}else if (data.indexOf("LDAP-DIT")>0) {
+						System.err.println("Login incorrecto (LDAP-DIT)");
 						browser.setUrl(NET_URL+"?Invalid=1");
 					} else if (data.indexOf("displayName")>0) {
+						String nombre="";
+						String login="";
+						String userid="";
 						System.err.println("Login success");
 						try {
 							Hashtable<String,String> items =retrieveData(data);
 							Enumeration<String> e = items.keys();
+							// now some checks
+							if (!items.get("upmCentre").contains("09"))
+								throw new IOException("El usuario "+items.get("uid")+" no está en la ETSIT");
 							while (e.hasMoreElements()) {
 								String key=e.nextElement();
-								System.out.println(key+": "+items.get(key));
+								System.err.println(key+": "+items.get(key));
+								if (key.equals("displayName")) nombre=items.get(key);
+								if (key.equals("uid")) login=items.get(key);
 							}
 							// also extract DNI
 							String dni=items.get("upmPersonalUniqueID").replaceAll("[^0-9]", "");
 							System.out.println("UserID: "+dni);
-							// now some checks
-							if (!items.get("upmCentre").contains("09"))
-								throw new IOException("El usuario "+items.get("uid")+" no está en la ETSIT");
-						} catch (IOException e) {
+							userid=dni;
+							// componemos la url
+							String url=SUCCESS_URL+"?nombre="+nombre+"&login="+login+"&userid="+userid;
+							browser.setUrl(url);
+							delayedClose(7000);
+							// PENDING need to launch gnome session
+						} catch (Exception e) {
 							System.err.println(e.getMessage());
 							e.printStackTrace();
 						}
-						display.dispose();
 					} else {
 						System.err.println("En la página de autenticación de la UPM");
 					}
@@ -153,7 +168,20 @@ public class UPMAuthenticator {
 		browser.setLayoutData(data);
 
     }
-    
+
+	private void delayedClose(int milis) {
+		Display.getDefault().timerExec(milis,new Runnable() {
+			public void run() {
+				try {
+					display.dispose();
+				} catch(Exception te) {
+					System.err.println(te.getMessage());
+					te.printStackTrace();
+				}
+			}
+		});
+	}
+
     private boolean isInternetReachable() {
         HttpURLConnection urlConnect = null;
         try {

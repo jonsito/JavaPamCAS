@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Laboratorios docentes DIT-UPM: Iniciar sesión en el sitio</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="upm, dit, alumnos, LabDit-UPM: Iniciar sesión en el sitio" />
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="moodle-validation" content="011bc55b9caa41eded0581338c58da4a">
+    <link rel="shortcut icon" href="https://acceso.lab.dit.upm.es/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="https://acceso.lab.dit.upm.es/login/css/yui-moodlesimple.css">
+    <link rel="stylesheet" type="text/css" href="https://acceso.lab.dit.upm.es/login/css/stylelogin.css" />
+    <link rel="stylesheet" type="text/css" href="https://acceso.lab.dit.upm.es/login/css/login.css" />
+    <link rel="stylesheet" type="text/css" href="https://acceso.lab.dit.upm.es/login/css/upm-blue2.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        //<![CDATA[
+
+        function login_success() {
+            // miramos argumentos de la llamada para ver si hay que activar el tooltip
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            $('#nombre').val(urlParams.get("nombre"));
+            $('#login').val(urlParams.get("login"));
+            $('#userid').val(urlParams.get("userid"));
+            $('#home').val("/home/"+urlParams.get("login"));
+        }
+
+        //]]>
+    </script>
+
+    <style>
+        @media screen and (min-width: 601px) {
+            body {overflow: inherit;}
+            div.loginupm {font-size: 49px;}
+        }
+        @media screen and (min-width: 1300px) {
+            body {overflow: inherit;}
+            div.loginupm {font-size: 59px;}
+            div.col-xl-8 {width: 55%;}
+            div.push-xl-2{left: 22%;}
+            div.col-xl-6 {width: 55%;}
+            div.push-xl-3{left: 22%;}
+        }
+        @media screen and (max-width: 600px) {
+            body {overflow: auto;}
+            div.loginupm {font-size: 30px;}
+        }
+    </style>
+</head>
+<body onload="login_success();">
+    <p>
+        Usuario identificado correctamente
+    </p>
+    <form name="datos_identificativos">
+        <ul>
+            <li>
+                <label for="nombre">Nombre:</label>
+                <input id="nombre" type="text" value=""/>
+            </li>
+            <li>
+                <label for="login">Login:</label>
+                <input id="login" type="text" value=""/>
+            </li>
+            <li>
+                <label for="userid">ID de usuario:</label>
+                <input id="userid" type="text" value=""/>
+            </li>
+            <li>
+                <label for="home">Directorio del usuario</label>
+                <input id="home" type="text" value=""/>
+            </li>
+        </ul>
+    </form>
+    <p>
+        Preparando la sesión.... por favor espere un momento
+    </p>
+</body>
+</html>

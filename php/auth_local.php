@@ -130,6 +130,6 @@ if ($res) {
 } else {
     // mark error and force reload main page
     echo "<html><head></head><body>".PHP_EOL;
-    echo "Credenciales invalidas".PHP_EOL;
+    echo "Usuario o Contraseña LDAP-DIT invalidos".PHP_EOL;
     echo "</body></html>".PHP_EOL;
 }
